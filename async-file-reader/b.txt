@@ -1,0 +1,1 @@
+This is file B as file A inside of it there are some words for testing purpose.

@@ -1,0 +1,1 @@
+This is file C as file A and file  B inside of file C there are some words for testing purpose.
