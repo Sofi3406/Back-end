@@ -1,5 +1,4 @@
 
-
 //  The Notification class violates several SOLID principles
 
 //1, Single Responsibility Principle (SRP):The Notification class has multiple responsibilities.
