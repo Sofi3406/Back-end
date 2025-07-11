@@ -8,16 +8,30 @@
 //4, Interface Segregation Principle (ISP): The send method requires parameters for all types, forcing clients to provide unnecessary information
 //5, Dependency Inversion Principle (DIP): The class depends directly on concrete implementations rather than abstractions.
 
-// Notification Interface
+
+
+// Base Notification class
 class Notification {
     send(message) {
         throw new Error("This method should be overridden.");
     }
 }
 
-class EmailNotification extends Notification {
+// NotificationChannel interface
+class NotificationChannel {
+    constructor(channelName) {
+        this.channelName = channelName;
+    }
+
+    send(message) {
+        throw new Error("This method should be overridden.");
+    }
+}
+
+// Email Notification Channel
+class EmailNotification extends NotificationChannel {
     constructor(emailAddress) {
-        super();
+        super('Email');
         this.emailAddress = emailAddress;
     }
 
@@ -27,9 +41,10 @@ class EmailNotification extends Notification {
     }
 }
 
-class SMSNotification extends Notification {
+// SMS Notification Channel
+class SMSNotification extends NotificationChannel {
     constructor(phoneNumber) {
-        super();
+        super('SMS');
         this.phoneNumber = phoneNumber;
     }
 
@@ -39,9 +54,10 @@ class SMSNotification extends Notification {
     }
 }
 
-class TelegramNotification extends Notification {
+// Telegram Notification Channel
+class TelegramNotification extends NotificationChannel {
     constructor(telegramId) {
-        super();
+        super('Telegram');
         this.telegramId = telegramId;
     }
 
@@ -51,25 +67,30 @@ class TelegramNotification extends Notification {
     }
 }
 
-function createNotification(type, contactInfo) {
-    switch (type) {
-        case 'email':
-            return new EmailNotification(contactInfo);
-        case 'sms':
-            return new SMSNotification(contactInfo);
-        case 'telegram':
-            return new TelegramNotification(contactInfo);
-        default:
+// Notification Factory
+class NotificationFactory {
+    static createNotification(channelType, contactInfo) {
+        const channels = {
+            email: EmailNotification,
+            sms: SMSNotification,
+            telegram: TelegramNotification
+        };
+
+        const ChannelClass = channels[channelType.toLowerCase()];
+        if (!ChannelClass) {
             throw new Error("Unknown notification type");
+        }
+
+        return new ChannelClass(contactInfo);
     }
 }
 
 // Usage
-const n1 = createNotification('email', 'nexus@email.com');
+const n1 = NotificationFactory.createNotification('email', 'nexus@email.com');
 n1.send('Hello!');
 
-const n2 = createNotification('sms', '1234567890');
+const n2 = NotificationFactory.createNotification('sms', '1234567890');
 n2.send('Hi!');
 
-const n3 = createNotification('telegram', 'telegram_user_42');
+const n3 = NotificationFactory.createNotification('telegram', 'telegram_user_42');
 n3.send('Yo!');
