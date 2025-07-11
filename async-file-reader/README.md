@@ -1,3 +1,5 @@
-For a visual walkthrough of the project, please check out the following video record:
+# For a visual walkthrough of the project, please check out the following video record:
+# Replaced outdated video link with a new link that is accessible to all users
+#  Ensured the new link directs to the correct demo content
 
-https://www.awesomescreenshot.com/video/41730960?key=130ba73c0fd93c4e5d4d9aa263c040fegit add README.md
+https://www.awesomescreenshot.com/video/41930517?key=8b22eb9473fbcda69968b00e3ecb17a9
